@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mine.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://code.jscharting.com/latest/jscharting.js"></script>
+    <title>TaskVision</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-header">
+            <h2>TaskVision</h2>
+        </div>
+        {% if session['role'] == 'Project Manager' %}
+            <div class="nav-body">
+                <ul>
+                    <li><a href="/home">Project</a></li>
+                    <li><a href="{{ url_for('display', page='startup') }}">Start-up</a><a href="#" onclick="toggleStartup()"><span class="material-symbols-sharp">add</span></a></li>
+                    <li><a href="{{ url_for('display', page='quality')}}">Quality</a><a href="#" onclick="toggleQuality()"><span class="material-symbols-sharp">add</span></a></li>
+                    <li><a href="{{ url_for('display', page='risk') }}">Risk</a><a href="#" onclick="toggleRisk()"><span class="material-symbols-sharp">add</span></a></li>
+                    <li><a href="{{ url_for('display', page='scheduling') }}">Scheduling</a><a href="#" onclick="toggleScheduling()"><span class="material-symbols-sharp">add</span></a></li>
+                </ul>
+            </div>
+        {% elif session['role'] =='Risk Managemnet'  %}
+            <div class="nav-body">
+                <ul>
+                    <li><a href="/home">Project</a></li>
+                    <li><a href="{{ url_for('display', page='risk') }}">Risk</a><a href="#" onclick="toggleRisk()"><span class="material-symbols-sharp">add</span></a></li>
+                </ul>
+            </div>
+        {% elif session['role'] == 'Schedule Manager' %}
+            <div class="nav-body">
+                <ul>
+                    <li><a href="/home">Project</a></li>
+                    <li><a href="{{ url_for('display', page='scheduling') }}">Scheduling</a><a href="#" onclick="toggleScheduling()"><span class="material-symbols-sharp">add</span></a></li>
+                </ul>
+            </div>
+        {% else %}
+            <div class="nav-body">
+                <ul>
+                    <li><a href="/home">Project</a></li>
+                    <li><a href="{{ url_for('display', page='quality')}}">Quality</a><a href="#" onclick="toggleQuality()"><span class="material-symbols-sharp">add</span></a></li>
+                </ul>
+            </div>
+        {% endif %}
+    </nav>
+    <div class="top-nav">
+        <h2>CIS015-3 Assignment 1</h2>
+    </div>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+<script>
+    function toggleStartup() {
+        var modal = document.getElementById('startup');
+        modal.style.display = 'block';};
+    function toggleQuality() {
+        var modal = document.getElementById('quality');
+        modal.style.display = 'block';};
+    function toggleRisk() {
+        var modal = document.getElementById('risk');
+        modal.style.display = 'block';};
+    function toggleScheduling() {
+        var modal = document.getElementById('scheduling');
+        modal.style.display = 'block';};
+    
+</script>
+</body>
+</html>

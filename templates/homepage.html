@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<main>
+    <div class="modal" id="startup">
+        <span class="material-symbols-sharp" id="timesclose" onclick="toggleCloseStartup()" style="cursor: pointer;">close</span>
+        <form method="POST" enctype="multipart/form-data" name="file-startup">
+            <div class="header"><span class="material-symbols-sharp">upload_file</span></div>
+            <div class="body">
+                <input type="file" name="file-startup" required>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal" id="quality">
+        <span class="material-symbols-sharp" id="timesclose" onclick="toggleCloseQuality()" style="cursor: pointer;">close</span>
+        <form method="POST" enctype="multipart/form-data" name="file-quality">
+            <div class="header"><span class="material-symbols-sharp">upload_file</span></div>
+            <div class="body">
+                <input type="file" name="file-quality" required>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal" id="risk">
+        <span class="material-symbols-sharp" id="timesclose" onclick='toggleCloseRisk()' style="cursor: pointer;">close</span>
+        <form method="POST" enctype="multipart/form-data" name="file-risk">
+            <div class="header"><span class="material-symbols-sharp">upload_file</span></div>
+            <div class="body">
+                <input type="file" name="file-risk" required>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal" id="scheduling">
+        <span class="material-symbols-sharp" id="timesclose" onclick="toggleCloseScheduling()" style="cursor: pointer;">close</span>
+        <form method="POST" enctype="multipart/form-data" name="file-scheduling">
+            <div class="header"><span class="material-symbols-sharp">upload_file</span></div>
+            <div class="body">
+                <input type="file" name="file-scheduling" required>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+   <div class="main-top">
+    {% for pid,name,desc, start,end,budget,uid in projectDetails %}
+    {% set duration = end - start %}
+    {% set left = end - today %}
+    {% set percent = (left/duration) *100 %}
+    {% set percent1 = (left/duration) %}
+    <div class="time">
+        {% if left.days <= 0 %}
+            <h4>Time</h4>
+            <p>{{start.strftime('%d/%m/%Y')}}</p> &#8594; <p>{{end.strftime('%d/%m/%Y')}}</p>
+            <h4 style="color: green;">Finished !!</h4>
+            <progress value="100" max="100%" title="{{'%0.2f'| format(percent|float)}}% have passed"></progress>
+        {% elif left.days > 0 %}
+            <h4>Time</h4>
+            <p>{{start.strftime('%d/%m/%Y')}}</p> &#8594; <p>{{end.strftime('%d/%m/%Y')}}</p>
+            <h4>{{left.days}} days left</h4>
+            <progress value="{{percent1}}" max="100%" title="{{'%0.2f'| format(percent|float)}}% have passed"></progress>
+        {% endif %}
+    </div>
+        <div class="budget">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Tasks Completed</th>
+                        <th title="Work In Progress">WIP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for id,firstname,lastname,started,wip,done in userTaskDetails %}
+                    <tr>
+                        <td>{{firstname}} {{lastname}}</td>
+                        <td>{{done}}</td>
+                        <td>{{wip}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        
+    {% endfor %}
+   </div>
+   <div class="main-main">
+        <div id="chartDiv" style="width: 100%;height: 400px;"></div>
+        <div class="task-details">
+            <h3 style="margin-top: 0;">Tasks</h3>
+            {% for tid,name,stat,start,end,pid in tasksDetails %}
+            {% set duration = end - start %}
+            {% set left = end - today %}
+            {% set percent = (left/duration) %}
+            {% if percent < 0  %}
+                <div class="details-details">
+                    <p><b>{{name}}</b></p>
+                    <progress value="100" max="100%" ></progress>
+                </div>
+            {% elif 0 < percent < 1 %}
+                <div class="details-details">
+                    <p><b>{{name}}</b></p>
+                    <progress value="{{percent}}" max="100%" ></progress>
+                </div>
+            {% elif percent > 1 %}
+                <div class="details-details">
+                    <p><b>{{name}}</b></p>
+                    <progress value="0" max="100%" ></progress>
+                </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+   </div>
+     
+</main>
+<script>
+    var config = {
+        debug: false,
+        type: 'horizontal column',
+        zAxis_scale_type: 'stacked',
+        legend: { 
+        position: 'inside right top', 
+        template: '%icon %name'
+    },
+        title_label_text: 'Project Schedule',
+        yAxis: {
+            scale_type: 'time',
+            markers:[{
+                value: new Date(),
+                color: 'red',
+                label_text: "We're here"
+            }]
+        },
+        
+
+        series: [
+            {% for tid,name,stat,start,end,pid in tasksDetails %}
+            {
+                name: '{{ name }}',
+                points: [
+                    {
+                        name: '{{ name }}',
+                        y: ['{{ start }}', '{{ end }}']
+                    }
+                ]
+            }
+            {% if not loop.last %},{% endif %}
+            {% endfor %}
+        ]
+    };
+    var chart = JSC.chart('chartDiv', config);
+
+    function toggleCloseStartup(){
+        var modal = document.getElementById('startup')
+        modal.style.display = 'none';}
+    function toggleCloseQuality(){
+        var modal = document.getElementById('quality')
+        modal.style.display = 'none';}
+    function toggleCloseRisk(){
+        var modal = document.getElementById('risk')
+        modal.style.display = 'none';}
+    function toggleCloseScheduling(){
+        var modal = document.getElementById('scheduling')
+        modal.style.display = 'none';}
+</script>
+{% endblock %}

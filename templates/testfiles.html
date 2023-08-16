@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<main>
+    <div class="container" style="position:relative; padding-bottom: 100rem;">
+        {% for item in data %}
+        <div class="docuemnt">
+            {{item.html | safe}}
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

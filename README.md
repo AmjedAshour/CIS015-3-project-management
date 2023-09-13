@@ -142,7 +142,7 @@ For this project, I served as both the project manager and the sole developer. I
   - Integrating the database and implementing data persistence.
   - Handling front-end and back-end development.
   - Conducting testing and debugging.
-  - Deploying and maintaining the application.
+  - Deploying (temporarily) and maintaining the application.
 In addition to my role as the project manager.
 
-I took on this dual role to gain a comprehensive understanding of the project management and development processes, which allowed me to deliver a successful project as the sole contributor.
+I took on this dual role to gain a comprehensive understanding of the project management and development processes, which allowed me to deliver a successful project.

@@ -74,3 +74,56 @@ Working as the project manager for this assignment provided me with valuable ins
 
 This project not only served as a learning experience but also resulted in the creation of a functional project management tool that can be further developed and expanded for real-world applications.
 
+## Database Schema
+
+### Users Table
+
+- **Table Name**: users
+- **Description**: This table stores information about users of the application, including their usernames, passwords, and roles.
+
+| Column Name  | Data Type    | Description             |
+|--------------|--------------|-------------------------|
+| idUsers      | INT          | Unique user identifier  |
+| username     | VARCHAR(50)  | User's username         |
+| password     | VARCHAR(255) | User's hashed password  |
+| role         | VARCHAR(20)  | User's role (e.g., admin, member) |
+
+### Projects Table
+
+- **Table Name**: projects
+- **Description**: This table contains details about the projects being managed by the application.
+
+| Column Name  | Data Type    | Description                   |
+|--------------|--------------|-------------------------------|
+| idProjects   | INT          | Unique project identifier     |
+| projectName  | VARCHAR(100) | Name of the project           |
+| projectDesc  | TEXT         | Description of the project    |
+| startDate    | DATE         | Start date of the project     |
+| endDate      | DATE         | End date of the project       |
+
+### Tasks Table
+
+- **Table Name**: tasks
+- **Description**: This table tracks individual tasks associated with projects.
+
+| Column Name  | Data Type    | Description                      |
+|--------------|--------------|----------------------------------|
+| idTasks      | INT          | Unique task identifier           |
+| taskName     | VARCHAR(100) | Name of the task                  |
+| taskDesc     | TEXT         | Description of the task           |
+| status       | VARCHAR(20)  | Task status (e.g., started, done) |
+| projectID    | INT          | Foreign key to the projects table |
+
+### UserTasks Table
+
+- **Table Name**: usertasks
+- **Description**: This table links users to the tasks they are assigned to and tracks the status of their involvement.
+
+| Column Name  | Data Type    | Description                             |
+|--------------|--------------|-----------------------------------------|
+| idUserTasks  | INT          | Unique user-task relationship identifier|
+| idUsers      | INT          | Foreign key to the users table          |
+| idTasks      | INT          | Foreign key to the tasks table          |
+| status       | VARCHAR(20)  | User's status for the assigned task     |
+
+

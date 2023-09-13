@@ -126,4 +126,23 @@ This project not only served as a learning experience but also resulted in the c
 | idTasks      | INT          | Foreign key to the tasks table          |
 | status       | VARCHAR(20)  | User's status for the assigned task     |
 
+## Project Team and Contributions
 
+### Development Team
+
+- **Project Manager:** Amjad Ashour
+- **Developer:** Amjad Ashour
+
+### Role and Contributions
+
+For this project, I served as both the project manager and the sole developer. In this dual role, my responsibilities included:
+
+  - Writing the entire codebase for the application.
+  - Designing the user interface and user experience.
+  - Integrating the database and implementing data persistence.
+  - Handling front-end and back-end development.
+  - Conducting testing and debugging.
+  - Deploying and maintaining the application.
+In addition to my role as the project manager.
+
+I took on this dual role to gain a comprehensive understanding of the project management and development processes, which allowed me to deliver a successful project as the sole contributor.

@@ -74,4 +74,3 @@ Working as the project manager for this assignment provided me with valuable ins
 
 This project not only served as a learning experience but also resulted in the creation of a functional project management tool that can be further developed and expanded for real-world applications.
 
-## Screenshots
